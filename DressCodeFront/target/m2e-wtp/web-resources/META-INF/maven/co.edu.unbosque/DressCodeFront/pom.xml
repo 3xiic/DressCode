@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>co.edu.unbosque</groupId>
+  <artifactId>DressCodeFront</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>DressCodeFront</name>
+  <description>Forero, Espitia, Mejia, Uribe</description>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>17</release>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.3</version>
+      </plugin>
+    </plugins>
+  </build>
+ 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-impl -->
+	<dependency>
+	    <groupId>com.sun.faces</groupId>
+	    <artifactId>jsf-impl</artifactId>
+	    <version>2.1.9</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-api -->
+	<dependency>
+	    <groupId>com.sun.faces</groupId>
+	    <artifactId>jsf-api</artifactId>
+	    <version>2.2.2</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+	<dependency>
+   		<groupId>org.primefaces</groupId>
+    	<artifactId>primefaces</artifactId>
+    	<version>8.0</version>
+	</dependency>
+	
+	<dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
+	<dependency>
+    	<groupId>org.springframework.boot</groupId>
+    	<artifactId>spring-boot-starter-thymeleaf</artifactId>
+    	<version>3.1.0</version>
+	</dependency>
+
+	<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+	<dependency>
+    	<groupId>com.googlecode.json-simple</groupId>
+    	<artifactId>json-simple</artifactId>
+    	<version>1.1</version>
+	</dependency>
+
+ 		<dependency>
+ 			<groupId>co.edu.unbosque</groupId>
+ 			<artifactId>DressCodeBack</artifactId>
+ 			<version>0.0.1-SNAPSHOT</version>
+ 		</dependency>
+ 		
+ 		
+ 	</dependencies>
+</project>

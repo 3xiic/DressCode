@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd" >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"/>
+	<title>Customers</title>
+	<script type="text/javascript">
+
+	function add(form) {
+		var url = "http://localhost:8081/customers/new";
+		var data = {};
+		data.name = form.elements['formregistro:nombre'].value;
+		data.document = form.elements['formregistro:cedula'].value;
+		data.address = form.elements['formregistro:direccion'].value;
+		data.phone_number = form.elements['formregistro:telefono'].value;
+		data.email = form.elements['formregistro:correo'].value;
+		var json = JSON.stringify(data);
+	    alert(json);
+		var xhr = new XMLHttpRequest();
+	
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+	xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+	xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+	xhr.onreadystatechange = function () {
+		var users = xhr.responseText;
+		if (xhr.readyState == 4 &amp;&amp; xhr.status == "201") {
+			console.log(users);
+		} else {
+			console.log(users);
+		}
+	}
+	xhr.send(json);
+	location.reload()
+	}
+
+	function update(form) {
+		var url = "http://localhost:8081/customers/update";
+		var data = {};
+		data.str1 = form.elements['formupdate:id'].value;
+		data.str2 = PF('campo').getSelectedValue();
+		data.str3 = form.elements['formupdate:nuevo'].value;
+		var json = JSON.stringify(data);
+	    alert(json);
+		var xhr = new XMLHttpRequest();
+		
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+		xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+		xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+		xhr.onreadystatechange = function () {
+			var users = xhr.responseText;
+			if (xhr.readyState == 4 &amp;&amp; xhr.status == "200") {
+				console.log(users);
+			} else {
+				console.log(users);
+			}
+		}
+		xhr.send(json);
+		location.reload();
+	}
+
+	function remove(form) {
+		var url = "http://localhost:8081/customers/delete";
+		var data = {};
+		data.id = form.elements['formdelete:cliente'].value;
+		data.str = form.elements['formdelete:cedula'].value;
+		var json = JSON.stringify(data);
+	    alert(json);
+		var xhr = new XMLHttpRequest();
+		
+		xhr.open("DELETE", url, true);
+		xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+		xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+		xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+		xhr.onreadystatechange = function () {
+			var users = xhr.responseText;
+			if (xhr.readyState == 4 &amp;&amp; xhr.status == "200") {
+				console.log(users);
+			} else {
+				console.log(users);
+			}
+		}
+		xhr.send(json);
+		location.reload()
+	}
+	
+	</script>
+</h:head>
+<h:body>
+	<div class="header navbar navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<div class="col-10 logo">
+				<a class="navbar-brand" href="#"> <h:graphicImage library="imgs"
+						name="logo.svg" width="230" height="70"></h:graphicImage>
+				</a>
+			</div>
+			<div class="col-2">
+				<div class="collapse navbar-collapse d-flex justify-content-start " id="navbarSupportedContent">
+					<ul class="navbar-nav">
+						<li class="menu nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false"> Menu </a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/DressCodeFront/faces/index.xhtml">M&Oacute;DULO PARAMETRIZACI&Oacute;N</a></li>
+								<li><a class="dropdown-item" href="/DressCodeFront/faces/customerpage.xhtml">M&Oacute;DULO DE GESTI&Oacute;N DE CLIENTES</a></li>
+								<li><a class="dropdown-item" href="/DressCodeFront/faces/supplierpage.xhtml">M&Oacute;DULO DE GESTI&Oacute;N DE PROVEEDORES</a></li>
+								<li><a class="dropdown-item" href="/DressCodeFront/faces/productpage.xhtml">M&Oacute;DULO DE GESTI&Oacute;N DE PRODUCTOS</a></li>
+								<li><a class="dropdown-item" href="/DressCodeFront/faces/shoppage.xhtml">M&Oacute;DULO DE GESTI&Oacute;N DE VENTAS</a></li>
+								<li><a class="dropdown-item" href="/DressCodeFront/faces/purchasepage.xhtml">M&Oacute;DULO DE GESTI&Oacute;N DE COMPRAS</a></li>
+								<li><a class="dropdown-item" href="/DressCodeFront/faces/tablespage.xhtml">M&Oacute;DULO DE CONSULTAS Y REPORTES</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container agregar secciones">
+		<div class="row">
+			<h1>AGREGAR CLIENTE</h1>
+		</div>
+		<h:form id="formregistro">
+			<div class="row">
+				<div class="col d-flex align-items-center">
+					<h:outputLabel for="nombre" value="Nombre Completo:" />
+				</div>
+				<div class="col">
+					<p:inputText id="nombre" name="nombre" required="required" styleClass="input"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col d-flex align-items-center">
+					<h:outputLabel for="cedula" value="C&eacute;dula:" />
+				</div>
+				<div class="col">
+					<p:inputText id="cedula" name="cedula" required="true" styleClass="input"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col d-flex align-items-center">
+					<h:outputLabel for="direccion" value="Direcci&oacute;n:" />
+				</div>
+				<div class="col">
+					<p:inputText id="direccion" name="direccion" required="true" styleClass="input"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col d-flex align-items-center">
+					<h:outputLabel for="telefono" value="Telefono de Contacto:" />
+				</div>
+				<div class="col">
+					<p:inputText id="telefono" name="telefono" required="true" styleClass="input"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col d-flex align-items-center">
+					<h:outputLabel for="correo" value="Correo Electronico:" />
+				</div>
+				<div class="col">
+					<p:inputText id="correo" name="correo" required="true" styleClass="input"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<h:commandButton type="button" id="agregarButton" value="Insertar" class="button" onclick="add(this.form)"/>
+			</div>
+		</h:form>
+	</div>
+	
+	<div class="container agregar secciones">
+		<div class="row">
+			<h1>ELIMINAR CLIENTE</h1>
+		</div>
+		<h:form id="formdelete">
+			<div class="row">
+				<div class="col d-flex align-items-center">
+					<h:outputLabel for="cliente" value="ID del Cliente:" />
+				</div>
+				<div class="col">
+					<p:inputText name="cliente" id="cliente" required="true" styleClass="input"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col d-flex align-items-center">
+					<h:outputLabel for="cedula" value="C&eacute;dula:" />
+				</div>
+				<div class="col">
+					<p:inputText name="cedula" id="cedula" required="true" styleClass="input"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<h:commandButton type="button" id="eliminarButton" value="Eliminar" class="button" onclick="remove(this.form)"/>
+			</div>
+		</h:form>
+	</div>
+	
+	<div class="container agregar secciones">
+		<div class="row">
+			<h1>ACTUALIZAR DATOS CLIENTE</h1>
+		</div>
+		<h:form id="formupdate">
+			<div class="row">
+				<div class="col d-flex align-items-center">
+					<h:outputLabel for="id" value="ID del Cliente:" />
+				</div>
+				<div class="col">
+					<p:inputText name="id" id="id" required="true" styleClass="input"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col d-flex align-items-center">
+					<h:outputLabel for="campo" value="Campo a actualizar:" />
+				</div>
+				<div class="col">
+					<p:selectOneMenu widgetVar="campo" name="campo" id="campo" required="true" styleClass="input-select">
+						<f:selectItem itemLabel="Nombre" itemValue="Nombre" />
+						<f:selectItem itemLabel="Cedula" itemValue="Cedula" />
+						<f:selectItem itemLabel="Direccion" itemValue="Direccion" />
+						<f:selectItem itemLabel="Telefono" itemValue="Telefono" />
+						<f:selectItem itemLabel="E-mail" itemValue="E-mail" />
+					</p:selectOneMenu>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col d-flex align-items-center">
+					<h:outputLabel for="nuevo" value="Nuevo Dato:" />
+				</div>
+				<div class="col">
+					<p:inputText name="nuevo" id="nuevo" required="true" styleClass="input"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<h:commandButton type="button" id="actualizarButton" value="Actualizar" class="button" onclick="update(this.form)"/>
+			</div>
+		</h:form>
+	</div>
+	
+	<div class="container agregar secciones">
+		<div class="row">
+			<h1>TABLA CLIENTES</h1>
+		</div>
+		<div class="table">
+			<p:dataTable resizableColumns="true" id="tablaDeClientes" var="customer" stripedRows="true" style="width:100%;" value="#{dressCodeBean.list_customers}">
+
+				<p:column id="Id" headerText="Id">
+					<h:outputText value="#{customer.id_customer}">
+						<f:convertNumber type="number" maxIntegerDigits="5"
+							maxFractionDigits="0" />
+					</h:outputText>
+				</p:column>
+
+				<p:column id="Cedula" headerText="Cedula">
+					<h:outputText value="#{customer.document}" />
+				</p:column>
+
+				<p:column id="Nombre" headerText="Nombre">
+					<h:outputText value="#{customer.name}" />
+				</p:column>
+
+				<p:column id="Direccion" headerText="Direccion">
+					<h:outputText value="#{customer.address}" />
+				</p:column>
+				
+				<p:column id="Telefono" headerText="Telefono">
+					<h:outputText value="#{customer.phone_number}" />
+				</p:column>
+				
+				<p:column id="Correo" headerText="Correo">
+					<h:outputText value="#{customer.email}" />
+				</p:column>
+			</p:dataTable>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+<style>
+* {
+	font-family: "Intro Rust", Arial, sans-serif;
+}
+
+body {
+	padding-top: 6rem;
+}
+
+.header {
+	background: linear-gradient(90deg, #ECF2FF 0%, #655DBB 100%);
+	border: 2px solid #3E54AC;
+	box-shadow: 0px 1px 0px #E5E9F2;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 999px;
+}
+
+.logo {
+	padding-left: 4rem;
+}
+
+.dropdown-item {
+	font-size: 10px;
+}
+
+.menu {
+	display: flex;
+	width: 7rem;
+	height: 3rem;
+	text-decoration: none;
+	color: #655DBB;
+	border: 2px Solid #655DBB;
+	background-color: #ECF2FF;
+	border-radius: 10px;
+	justify-content: center;
+	align-items: center;
+}
+
+.secciones {
+	margin: 3rem auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.secciones h1 {
+	margin: 0;
+}
+
+.agregar {
+	padding: 1rem;
+	color: #ECF2FF;
+	display: flex;
+	justify-content: center;
+	background: radial-gradient(50% 50% at 50% 50%, #BFACE2 0%, rgba(101, 93, 187, 0.77)
+		100%);
+	border-radius: 30px;
+	border: 3px solid #655DBB;
+}
+
+.row {
+	margin: 1rem 0;
+}
+
+.input {
+	font-family: "Intro Rust", Arial, sans-serif; width : 20rem;
+	background: #E5E9F2;
+	border: 2px solid #3E54AC;
+	border-radius: 20px;
+	width: 20rem;
+}
+
+.input-select {
+	font-family: "Intro Rust", Arial, sans-serif; width : 20rem;
+	border: 2px solid #3E54AC;
+	width: 20rem;
+}
+
+.button {
+	background: #ECF2FF;
+	border: 4px solid #3E54AC;
+	border-radius: 20px;
+}
+
+.table {
+	max-width: 90%;
+	max-height: 80%;
+	height: 40rem;
+	border: 3px solid #ECF2FF;
+}
+</style>
+</h:body>
+</html>
